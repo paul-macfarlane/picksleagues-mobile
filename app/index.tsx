@@ -1,4 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
+import { Link } from "expo-router";
 import { Star } from "lucide-react-native";
 import { Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -35,7 +36,7 @@ export default function Index() {
 
   return (
     <SafeAreaView className="flex-1 w-full">
-      <View className="flex-1 w-full items-center">
+      <View className="flex-1 w-full items-center p-4">
         <LinearGradient
           colors={
             isDarkColorScheme // need to keep this in sync with the color scheme in global.css
@@ -63,13 +64,17 @@ export default function Index() {
               spread and climbing the leaderboards with your friends.
             </Text>
 
-            <Button>
-              <Text className="font-bold">Get Started - It&apos;s Free!</Text>
-            </Button>
+            <Link href="/sign-up" asChild>
+              <Button>
+                <Text className="font-bold">Get Started - It&apos;s Free!</Text>
+              </Button>
+            </Link>
 
-            <Button variant={"outline"}>
-              <Text className="font-bold">Login with Google</Text>
-            </Button>
+            <Link href="/sign-in" asChild>
+              <Button variant={"outline"}>
+                <Text className="font-bold">Sign In</Text>
+              </Button>
+            </Link>
 
             <View className="flex flex-col gap-4 mt-4">
               {cards.map((card, index) => (
