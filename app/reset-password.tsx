@@ -2,8 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "expo-router";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { SafeAreaView, View } from "react-native";
+import { View } from "react-native";
 import { z } from "zod";
+import ScreenWrapper from "~/components/screen-wrapper";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
@@ -13,7 +14,9 @@ import { H1, Muted, P } from "~/components/ui/typography";
 const resetPasswordSchema = z
   .object({
     password: z.string().min(8, "Password must be at least 8 characters long"),
-    confirmPassword: z.string().min(8, "Password must be at least 8 characters long"),
+    confirmPassword: z
+      .string()
+      .min(8, "Password must be at least 8 characters long"),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
@@ -35,14 +38,14 @@ export default function ResetPassword() {
   };
 
   return (
-    <SafeAreaView className="flex-1 w-full">
-      <View className="flex-1 p-5">
+    <ScreenWrapper>
+      <View className="flex items-center gap-4 p-4 w-full">
         <H1 className="text-center mb-2 dark:text-white">Reset Password</H1>
-        <Muted className="text-center mb-6 dark:text-white/80">
+        <Muted className="text-center dark:text-white/80">
           Enter your new password
         </Muted>
 
-        <View className="space-y-4 mb-6">
+        <View className="flex gap-4 w-full">
           <View className="flex gap-2">
             <Label className="dark:text-white">New Password</Label>
             <Controller
@@ -81,16 +84,18 @@ export default function ResetPassword() {
               )}
             />
             {errors.confirmPassword && (
-              <Text className="text-red-500">{errors.confirmPassword.message}</Text>
+              <Text className="text-red-500">
+                {errors.confirmPassword.message}
+              </Text>
             )}
           </View>
         </View>
 
-        <Button onPress={handleSubmit(onSubmit)}>
+        <Button className="w-full mt-4" onPress={handleSubmit(onSubmit)}>
           <Text className="dark:text-white">Reset Password</Text>
         </Button>
 
-        <View className="flex-row justify-center items-center mt-6">
+        <View className="flex-row justify-center items-center">
           <P className="dark:text-white/80">Remember your password?</P>
           <Link href="/sign-in" asChild>
             <Button variant="link" className="p-0">
@@ -99,6 +104,6 @@ export default function ResetPassword() {
           </Link>
         </View>
       </View>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }

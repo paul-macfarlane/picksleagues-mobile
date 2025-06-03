@@ -2,8 +2,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "expo-router";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
-import { SafeAreaView, View } from "react-native";
+import { View } from "react-native";
 import { z } from "zod";
+import ScreenWrapper from "~/components/screen-wrapper";
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
@@ -30,14 +31,14 @@ export default function SignIn() {
   };
 
   return (
-    <SafeAreaView className="flex-1 w-full">
-      <View className="flex-1 p-5">
+    <ScreenWrapper>
+      <View className="flex items-center gap-4 p-4 w-full">
         <H1 className="text-center mb-2 dark:text-white">Welcome Back</H1>
-        <Muted className="text-center mb-6 dark:text-white/80">
+        <Muted className="text-center dark:text-white/80">
           Sign in to continue competing with your friends!
         </Muted>
 
-        <View className="space-y-4 mb-6">
+        <View className="flex gap-4 w-full">
           <View className="flex gap-2">
             <Label className="dark:text-white">Username</Label>
             <Controller
@@ -88,11 +89,11 @@ export default function SignIn() {
           </View>
         </View>
 
-        <Button onPress={handleSubmit(onSubmit)}>
+        <Button className="w-full" onPress={handleSubmit(onSubmit)}>
           <Text className="dark:text-white">Sign In</Text>
         </Button>
 
-        <View className="flex-row justify-center items-center mt-6">
+        <View className="flex-row justify-center items-center">
           <P className="dark:text-white/80">Don&apos;t have an account? </P>
           <Link href="/sign-up" asChild>
             <Button variant="link" className="p-0">
@@ -101,6 +102,6 @@ export default function SignIn() {
           </Link>
         </View>
       </View>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }
