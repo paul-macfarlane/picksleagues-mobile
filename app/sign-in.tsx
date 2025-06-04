@@ -10,6 +10,7 @@ import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 import { Text } from "~/components/ui/text";
 import { H1, Muted, P } from "~/components/ui/typography";
+import { API_URL } from "~/lib/constants";
 
 const signInSchema = z.object({
   username: z.string().min(1, "Username is required"),
@@ -25,7 +26,20 @@ export default function SignIn() {
     resolver: zodResolver(signInSchema),
   });
 
-  const onSubmit = (data: z.infer<typeof signInSchema>) => {
+  const onSubmit = async (data: z.infer<typeof signInSchema>) => {
+    try {
+      const response = await fetch(`${API_URL}/auth/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      const result = await response.json();
+      console.log("result", result);
+    } catch (e) {
+      console.log("e", e);
+    }
     // make https call to /api/auth/signin
     console.log("Form submitted:", data);
   };
