@@ -44,16 +44,8 @@ export const useSignUp = () => {
 
       await signUpApi(data);
 
-      // call signIn with the same data
-      const signInResult = await signInApi({
-        username: data.username,
-        password: data.password,
-      });
-
-      // TODO save result to storage
+      // todo trigger email/phone verification
       // TODO navigate to home
-
-      return signInResult;
     } catch (e) {
       if (e instanceof Error) {
         setSignUpError(e.message);
